@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+<div class="container" style="margin-top: 100px;">
+    <form [formGroup]="form">
+        <!-- Title -->
+        <i class="icon">Título</i>
+        <input class="input-field form-control" type="text"
+        formControlName="title" placeholder="Titulo de la película"/>
+        <!-- Sinopsis -->
+        <i class="icon">Sinopsis</i>
+        <input class="input-field form-control" type="text"
+        formControlName="synopsis" placeholder="Sinopsis de la película"/>
+        <!-- Poster -->
+        <i class="icon">Cartel</i>
+        <input class="input-field form-control" type="text"
+        formControlName="poster" placeholder="URL de la imagen del cartel"/>
+        <!-- Budget -->
+        <i class="icon">Presupuesto en dólares</i>
+        <input class="input-field form-control" type="number"
+        formControlName="budget" placeholder="Presupuesto en $"/>
+        <!-- Release date-->
+        <i class="icon">Fecha de estreno</i>
+        <input class="input-field form-control" type="datetime-local"
+        formControlName="release" placeholder="Fecha de estreno de la película"/>
+        <!-- +18 film? -->
+        <div><i class="icon">Restricción de edad</i></div>
+        <label>
+            <input id="checkScope" type="checkbox" class="scope" checked #checkBox
+            formControlName="all_ages" (change)="booleanChanged(checkBox.checked)">
+            <span class="check"></span>
+            <span id="public" *ngIf="checkBox.checked"> Apta para todos los públicos</span>
+            <span id="public" *ngIf="!checkBox.checked"> No apta para menores de edad</span>
+        </label>
+        <div formGroupName="production">
+            <div style="margin-top:30px;"><i class="icon">Producción</i></div>
+            <i class="icon">Productora</i>
+            <input class="input-field form-control" type="text"
+            formControlName="producer" placeholder="Productora de la película"/>
+            <i class="icon">País de origen</i>
+            <input class="input-field form-control" type="text"
+            formControlName="country" placeholder="País de origen"/>
+        </div>
+        <i class="icon">Reparto</i>
+        <div formGroupName="cast" *ngFor="let a of retrieveFormControls(); let i = index">
+            <div [formGroupName]="i">
+                <button *ngIf="retrieveFormArray().length > 1"
+                    type="button" class="btn btn-danger" (click)="removePostFormArrayItem(i)">
+                    <i class="fa fa-remove"></i> Borrar de la lista 
+                </button>
+                <button type="button" class="btn btn-warning" (click)="addFormArrayItem(i)">
+                    <i class="fa fa-plus"></i> Añadir a la lista 
+                </button>
+                <i class="icon">Actor</i>
+                <input class="input-field form-control" type="text"
+                formControlName="actor" placeholder="Nombre del actor"/>
+                <i class="icon">Personaje</i>
+                <input class="input-field form-control" type="text"
+                formControlName="role" placeholder="Personaje que interpreta"/>
+            </div>
+        </div>
+        <i class="icon">Géneros</i>
+        <input class="input-field form-control" type="text"
+        formControlName="genres" placeholder="Géneros de la película"
+        (keyup)="onArrayChanged($event)"/>
+    </form>
+    <div class="col-sm-12 col-sm-offset-3">
+        <button type="submit" id="submit" (click)="postFilm()" class="btn btn-warning">
+            Añadir película</button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<div class="row" style="margin: 100px;">
+    <div class="col-md-3" *ngFor="let film of films">
+        <div class="films center-version">
+            <a class="bg-img" href="{{ film.title }}" style="background-image: url({{film.poster}})">
+            </a>
+            <div class="footer">
+                <a class="link" href="{{ film.title }}">
+                    <h3 class="m-b-xs text"><strong>{{ film.title }}</strong></h3>
+                </a>
+            </div>
+        </div> 
+    </div>
+</div>

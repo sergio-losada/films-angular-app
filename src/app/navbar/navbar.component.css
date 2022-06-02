@@ -1,0 +1,47 @@
+.nav-link {
+  margin-bottom: 6px;
+}
+
+a:not([href]):not([class]),
+a:not([href]):not([class]):hover {
+  color: black;
+  cursor: pointer;
+}
+
+.navbar-light {
+  background: #addc35;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding-bottom: 12px;
+  z-index: 1000;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  margin-right: 50px;
+  margin-left: 20px;
+}
+
+ul {
+  margin-top: 0.4em;
+  font-size: 18px;
+}
+
+.form-inline {
+  margin-bottom: 8px;
+}
+
+#searchForm {
+  position: relative;
+  margin-left: 0;
+  margin-bottom: 4px;
+  padding-top: 6.5px;
+  width: 400px;
+  color: black
+}

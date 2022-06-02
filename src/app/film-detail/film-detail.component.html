@@ -1,0 +1,193 @@
+<app-navbar></app-navbar>
+<div class="container" style="margin-top: 100px;">
+    <div class="row no-gutters">
+        <div class="col-lg-4" id="poster">
+            <img src="{{ selectedFilm!.poster }}" width="480">
+        </div>
+        <div class="col-lg-7 px-7 pt-4">
+            <div class="text-right">
+                <button type="button" class="btn btn-danger" (click)="delete()">
+                    <i class="fa fa-trash"></i> Borrar película</button>
+                <button *ngIf="!editMode" type="button" class="btn btn-warning" (click)="onEditChange()">
+                    <i class="fa fa-pencil"></i> Editar película</button>
+                <button *ngIf="editMode" type="button" class="btn btn-secondary" (click)="onEditChange()">
+                    <i class="fa fa-remove fa-md"></i> Cancelar edición</button>
+            </div>
+            <br>
+            <br>
+            <div class="row gutters" *ngIf="!editMode">
+                <div class="col-md-12">
+                    <h4 class="mt-5 mb-2">{{ selectedFilm!.title }}</h4>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Sinopsis</label>
+                        <textarea type="text" class="form-control" disabled id="name" value="{{selectedFilm!.synopsis}}"
+                            rows="3">
+                            </textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="owner">Presupuesto</label>
+                        <input type="text" class="form-control" disabled value="${{selectedFilm!.budget}}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dataKey">Fecha de estreno</label>
+                        <input type="text" class="form-control" disabled
+                            value="{{selectedFilm!.release | date:'dd-MM-yyyy'}}">
+                    </div>
+                </div>
+                <div *ngIf="selectedFilm!.all_ages">
+                    <label>Restricción de edad</label>
+                    <label>
+                        <input id="checkScope" type="checkbox" class="scope" disabled checked #checkBox
+                            (change)="booleanChanged(checkBox.checked)">
+                        <span class="check"></span>
+                        <span id="public" *ngIf="checkBox.checked"> Apta para todos los públicos</span>
+                        <span id="public" *ngIf="!checkBox.checked"> No apta para menores de edad</span>
+                    </label>
+                </div>
+                <div *ngIf="!selectedFilm!.all_ages">
+                    <label>Restricción de edad</label>
+                    <label>
+                        <input id="checkScope" type="checkbox" class="scope" disabled #checkBox
+                            (change)="booleanChanged(checkBox.checked)">
+                        <span class="check"></span>
+                        <span id="public" *ngIf="checkBox.checked"> Apta para todos los públicos</span>
+                        <span id="public" *ngIf="!checkBox.checked"> No apta para menores de edad</span>
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="owner">Géneros</label>
+                        <input type="text" class="form-control" disabled value="{{selectedFilm!.genres}}">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h5 class="mt-5 mb-2">Datos de la productora</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="owner">Productora</label>
+                        <input type="text" class="form-control" disabled value="{{selectedFilm!.production.producer}}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="dataKey">País de origen</label>
+                        <input type="text" class="form-control" disabled value="{{selectedFilm!.production.country}}">
+                    </div>
+                </div>
+                <div>
+                    <h5 class="mt-5 mb-2">Reparto</h5>
+                </div>
+                <label for="owner">Actor - Personaje</label>
+                <div class="col-md-12" *ngFor="let actors of selectedFilm!.cast">
+                    <div class="col-md-12" style="margin-bottom: 5px;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" disabled id="owner"
+                                value="{{actors.actor}} - {{actors.role}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters" *ngIf="editMode">
+                <form [formGroup]="form">
+                    <div class="col-md-12">
+                        <label>Título</label>
+                        <input formControlName="title" type="text" class="form-control"
+                            value="{{this.form.value.title}}">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Sinopsis</label>
+                            <textarea type="text" class="form-control" id="name" value="{{this.form.value.synopsis}}"
+                                rows="3" formControlName="synopsis">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Cartel</label>
+                        <input formControlName="poster" type="text" class="form-control"
+                            value="{{this.form.value.poster}}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="owner">Presupuesto</label>
+                            <input formControlName="budget" type="number" class="form-control"
+                                value="{{selectedFilm!.budget}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dataKey">Fecha de estreno</label>
+                            <input formControlName="release" type="datetime-local" class="form-control"
+                                value="{{selectedFilm!.release | date:'yyyy-MM-ddTHH:mm'}}">
+                        </div>
+                    </div>
+                    <div *ngIf="selectedFilm!.all_ages">
+                        <label>Restricción de edad</label>
+                        <label>
+                            <input id="checkScope" type="checkbox" class="scope" checked #checkBox
+                                formControlName="all_ages" (change)="booleanChanged(checkBox.checked)">
+                            <span class="check"></span>
+                            <span id="public" *ngIf="checkBox.checked"> Apta para todos los públicos</span>
+                            <span id="public" *ngIf="!checkBox.checked"> No apta para menores de edad</span>
+                        </label>
+                    </div>
+                    <div *ngIf="!selectedFilm!.all_ages">
+                        <label>Restricción de edad</label>
+                        <label>
+                            <input id="checkScope" type="checkbox" class="scope" #checkBox formControlName="all_ages"
+                                (change)="booleanChanged(checkBox.checked)">
+                            <span class="check"></span>
+                            <span id="public" *ngIf="checkBox.checked"> Apta para todos los públicos</span>
+                            <span id="public" *ngIf="!checkBox.checked"> No apta para menores de edad</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Géneros</label>
+                            <input formControlName="genres" type="text" class="form-control"
+                                (keyup)="onArrayChanged($event)" value="{{selectedFilm!.genres}}">
+                        </div>
+                    </div>
+                    <div formGroupName="production">
+                        <label>Productora</label>
+                        <input class="input-field form-control" type="text" formControlName="producer"
+                            placeholder="Productora de la película" />
+                        <label>País de origen</label>
+                        <input class="input-field form-control" type="text" formControlName="country"
+                            placeholder="País de origen" />
+                    </div>
+                    <div formGroupName="cast" *ngFor="let controls of retrieveFormControls(); let i = index">
+                        <div [formGroupName]="i">
+                            <button *ngIf="retrieveFormArray().length > 1" type="button" class="btn btn-danger"
+                                (click)="removePostFormArrayItem(i)">
+                                <i class="fa fa-remove"></i> Borrar de la lista
+                            </button>
+                            <button type="button" class="btn btn-warning" (click)="addFormArrayItem()">
+                                <i class="fa fa-plus"></i> Añadir a la lista
+                            </button>
+                            <label>Actor</label>
+                            <input class="input-field form-control" type="text" formControlName="actor"
+                                placeholder="Nombre del actor" value="{{controls.value['actor']}}"
+                                (keyup)="onActorChange(i, $event)" />
+                            <label>Personaje</label>
+                            <input class="input-field form-control" type="text" formControlName="role"
+                                placeholder="Personaje que interpreta" value="{{controls.value['role']}}"
+                                (keyup)="onRoleChange(i, $event)" />
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <button type="submit" id="submit" (click)="putFilm()" class="btn btn-primary">
+                        Editar película</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

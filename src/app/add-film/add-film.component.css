@@ -1,0 +1,20 @@
+span {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.form-control::placeholder {
+    color: #e0e0e0;
+}
+
+.btn-warning {
+    color: black;
+    background-color: #addc35;
+    margin-left: 20px;
+}
+
+.form-control {
+    background-color: #404040;
+    color: white;   
+}

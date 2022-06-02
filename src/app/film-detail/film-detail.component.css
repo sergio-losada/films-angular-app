@@ -1,0 +1,47 @@
+.text-right {
+    float:right;
+}
+
+.col-lg-7 {
+    margin-left: 100px;
+    min-width: 650px;
+}
+
+.btn {
+    background-color: #addc35;
+    margin-left: 20px;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary {
+    color: black;
+    margin-top: 10px !important;
+    float: center;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+span {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.form-control {
+    color: white;
+    background-color: #404040;
+}

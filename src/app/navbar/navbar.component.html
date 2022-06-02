@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="['']">Películas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="create">Añadir película</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <form class="form-inline" [formGroup]="formSearch" (keydown.enter)="search('')">
+                        <div id="searchForm">
+                            <ng-autocomplete [data]="films" [searchKeyword]="filmName"
+                                formControlName="filmName" 
+                                placeholder="Buscar película por nombre">
+                            </ng-autocomplete>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
